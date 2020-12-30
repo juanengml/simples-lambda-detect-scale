@@ -1,0 +1,17 @@
+apiVersion: "nuclio.io/v1beta1"
+kind: "NuclioFunction"
+spec:
+  description: >
+    Uses the inception model of the TensorFlow open-source machine-learning library to classify images.
+    The function demonstrates advanced uses of nuclio with a custom base image, third-party Python packages,
+    pre-loading data into function memory (the AI Model), structured logging, and exception handling.
+  runtime: "python:3.6"
+  handler: app:detect
+  minReplicas: 1
+  maxReplicas: 1
+  build:
+    baseImage: python:3.6-jessie
+    commands:
+    - "apt-get update && apt-get install -y wget"
+    - "wget https://cdn.pixabay.com/photo/2014/02/01/17/28/apple-256261_640.jpg "
+    - "pip install requests numpy detecto opencv-python cvlib matplotlib tensorflow"
